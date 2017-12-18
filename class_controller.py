@@ -50,7 +50,7 @@ class SnakeGame():
         self.snake_body.append(self.circ)
         self.x1 = 0
         self.y1 = 0
-        self.speed = 2
+        self.speed = 1
         self.root.after(1000, self.snake_coords_inc)
         self.root.after(1000, self.update_snake_pos)
 
@@ -82,7 +82,7 @@ class SnakeGame():
             x = self.snake_coords[m][0]
             y = self.snake_coords[m][1]
             self.lw.coords(part, x, y, x + 20, y + 20)
-            m += 1
+            m += 20
         self.root.after(10, self.update_snake_pos)
 
     def check_collisions(self):
@@ -112,9 +112,17 @@ class SnakeGame():
         self.direction = 3
 
     def grow(self):
-        print(self.x1 - 20, self.y1 - 20, self.x1, self.y1, self.x1)
-        m = self.lw.create_oval(10, 10, 30, 30, fill="red")
-        self.lw.tag_lower(m)  # lowers the level of element
+
+        l = len(self.snake_body)
+
+        print(self.snake_coords)
+
+        x = self.snake_coords[l*20 - 1][0]
+        y = self.snake_coords[l*20 - 1][1]
+        print(x)
+        print(self.x1)
+        m = self.lw.create_oval(x, y, x + 20, y + 20, fill="green")
+        #self.lw.tag_lower(m)  # lowers the level of element
         self.snake_body.append(m)
 
     def food_generator(self):
