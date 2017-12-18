@@ -36,9 +36,9 @@ class SnakeGame():
         self.root.geometry('400x300')
         self.root.title("Snake")
 
-        self.lw = tk.Canvas(bg="black")
+        self.lw = tk.Canvas(bg="black", width=400, height=300)
 
-        self.lw.pack(fill=X)
+        self.lw.pack()
 
         self.direction = 1
 
@@ -56,6 +56,7 @@ class SnakeGame():
         self.root.mainloop()
 
     def animation(self):
+        self.check_collisions()
         if self.direction == 1:
             self.x1 += self.speed
         elif self.direction == 2:
@@ -66,7 +67,17 @@ class SnakeGame():
             self.y1 -= self.speed
         print("heyyy", self.x1)
         self.lw.coords(self.circ, self.x1, self.y1, self.x1 + 20, self.y1 + 20)
-        self.root.after(50, self.animation)
+        self.root.after(10, self.animation)
+
+    def check_collisions(self):
+        if self.x1 > 380:
+            sys.exit()
+        if self.y1 > 380:
+            sys.exit()
+        if self.x1 < 0:
+            sys.exit()
+        if self.y1 < 0:
+            sys.exit()
 
     def change_diretion_down(self, event):
         self.direction = 2
