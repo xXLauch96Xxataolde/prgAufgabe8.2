@@ -9,12 +9,9 @@ __credits__ = "If you would like to thank somebody \
               i.e. an other student for her code or leave it out"
 __email__ = "niels.heissel@stud.uni-frankfurt.de"
 
-import random
 import sys
-import time
-import tkinter as tk
-import class_controller
 
+from scr import class_controller
 
 
 def menue():

@@ -31,7 +31,6 @@ class SnakeGame():
         In the constructor we bind every widget to its belonging root window
         """
 
-
         self.root = tk.Tk()
         self.tic = tic
         self.root.attributes("-topmost", True)  # put the root to foreground
@@ -67,6 +66,8 @@ class SnakeGame():
         self.snake_body.append(self.circ)
         self.x1 = 0
         self.y1 = 0
+
+        messagebox.showwarning("Instructions", "Normal Snake Game\nPlease use the arrow keys to navigate the snake.")
 
         self.root.bind('<Down>', self.change_diretion_down)
         self.root.bind('<Right>', self.change_diretion_right)
