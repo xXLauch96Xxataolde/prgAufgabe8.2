@@ -1,4 +1,4 @@
-"""Pah Tum Controller Class
+"""Snake Controller Class
 
 This class is dedicated to playing with a reali life friend or opponent. As always we tried
 to be as descriptive as possible, so our commenting in docstrings is relatively shorter
@@ -45,6 +45,9 @@ class SnakeGame():
         self.food_coords = []
         self.snake_body = []
         self.snake_coords = []
+        self.foods = []
+        self.score = 0
+        self.blocks = []
 
         self.circ = self.lw.create_oval(0, 0, 20, 20, fill="green")
         self.snake_body.append(self.circ)
@@ -60,6 +63,7 @@ class SnakeGame():
         self.root.bind('<Up>', self.change_diretion_up)
 
         self.root.after(3000, self.food_generator)
+        self.root.after(3000, self.block_generator)
 
         self.root.mainloop()
 
@@ -88,28 +92,105 @@ class SnakeGame():
     def check_collisions(self):
         if self.x1 > 380:
             sys.exit()
-        if self.y1 > 380:
+        if self.y1 > 280:
             sys.exit()
         if self.x1 < 0:
             sys.exit()
         if self.y1 < 0:
             sys.exit()
-        for food in self.food_coords:
-            if math.isclose(self.x1, food[0]):
+        for food in self.foods:
+            if self.x1 == self.lw.coords(food)[0] and self.y1 == self.lw.coords(food)[1]:
                 print("HIT")
                 self.grow()
+                self.lw.delete(food)
+                self.foods.remove(food)
+                self.score += 1
+                print(self.score)
+
+        for part in self.snake_coords[1:len(self.snake_body)*20]:
+
+            if part[0] == self.x1 and part[1] == self.y1:
+                sys.exit()
+
+        for block in self.blocks:
+            if self.x1 == self.lw.coords(block)[0] and self.y1 == self.lw.coords(block)[1]:
+                sys.exit()
 
     def change_diretion_down(self, event):
-        self.direction = 2
+        if self.direction == 4:
+            return
+        if self.snake_coords[0][0] % 20 == 0 and self.snake_coords[0][1] % 20 == 0:
+            print("Kann drehen.")
+            self.direction = 2
+            return
+        else:
+            print("jetzt nicht")
+            self.keep_change_down()
+
+    def keep_change_down(self):
+        if self.snake_coords[0][0] % 20 == 0 and self.snake_coords[0][1] % 20 == 0:
+            self.direction = 2
+            return
+        else:
+            print("no")
+            self.root.after(10, self.keep_change_down)
 
     def change_diretion_right(self, event):
-        self.direction = 1
+        if self.direction == 3:
+            return
+        if self.snake_coords[0][0] % 20 == 0 and self.snake_coords[0][1] % 20 == 0:
+            print("Kann drehen.")
+            self.direction = 1
+            return
+        else:
+            print("jetzt nicht")
+            self.keep_change_right()
+
+    def keep_change_right(self):
+        if self.snake_coords[0][0] % 20 == 0 and self.snake_coords[0][1] % 20 == 0:
+            self.direction = 1
+            return
+        else:
+            print("no")
+            self.root.after(10, self.keep_change_right)
 
     def change_diretion_up(self, event):
-        self.direction = 4
+        if self.direction == 2:
+            return
+        if self.snake_coords[0][0] % 20 == 0 and self.snake_coords[0][1] % 20 == 0:
+            print("Kann drehen.")
+            self.direction = 4
+            return
+        else:
+            print("jetzt nicht")
+            self.keep_change_up()
+
+    def keep_change_up(self):
+        if self.snake_coords[0][0] % 20 == 0 and self.snake_coords[0][1] % 20 == 0:
+            self.direction = 4
+            return
+        else:
+            print("no")
+            self.root.after(10, self.keep_change_up)
 
     def change_diretion_left(self, event):
-        self.direction = 3
+        if self.direction == 1:
+            return
+        if self.snake_coords[0][0] % 20 == 0 and self.snake_coords[0][1] % 20 == 0:
+            print("Kann drehen.")
+            self.direction = 3
+            return
+        else:
+            print("jetzt nicht")
+            self.keep_change_left()
+
+    def keep_change_left(self):
+        if self.snake_coords[0][0] % 20 == 0 and self.snake_coords[0][1] % 20 == 0:
+            self.direction = 3
+            return
+        else:
+            print("no")
+            self.root.after(10, self.keep_change_left)
 
     def grow(self):
 
@@ -122,17 +203,35 @@ class SnakeGame():
         print(x)
         print(self.x1)
         m = self.lw.create_oval(x, y, x + 20, y + 20, fill="green")
-        #self.lw.tag_lower(m)  # lowers the level of element
         self.snake_body.append(m)
 
     def food_generator(self):
-        x = random.randint(0, 380)
-        y = random.randint(0, 280)
+        while True:
+            x = random.randrange(0, 380, 20)
+            y = random.randrange(0, 280, 20)
+            if x in range(self.x1 - 40, self.x1 + 40) and y in range(self.y1 - 40, self.y1 + 40):
+                continue
+            else:
+                break
         self.food = self.lw.create_oval(x, y, x+20, y+20, fill="red")
         self.lw.tag_lower(self.food)  # lowers the level of element
         self.root.after(5000, self.food_generator)
         print(self.lw.coords(self.food)[0:2])
         self.food_coords.append(self.lw.coords(self.food)[0:2])
+        self.foods.append(self.food)
+
+    def block_generator(self):
+        while True:
+            x = random.randrange(0, 380, 20)
+            y = random.randrange(0, 280, 20)
+            if x in range(self.x1 - 60, self.x1 + 60) and y in range(self.y1 - 60, self.y1 + 60):
+                continue
+            else:
+                break
+        self.block = self.lw.create_oval(x, y, x+20, y+20, fill="grey")
+        self.lw.tag_lower(self.block)  # lowers the level of element
+        self.root.after(5000, self.block_generator)
+        self.blocks.append(self.block)
 
     def __del__(self):
         print("Instance deleted.")
