@@ -53,7 +53,7 @@ class SnakeGame():
         self.snake_body.append(self.circ)
         self.x1 = 0
         self.y1 = 0
-        self.speed = 1
+        self.speed = 5
         self.root.after(1000, self.snake_coords_inc)
         self.root.after(1000, self.update_snake_pos)
 
@@ -78,7 +78,7 @@ class SnakeGame():
         elif self.direction == 4:
             self.y1 -= self.speed
         self.snake_coords.insert(0, (self.x1, self.y1))
-        self.root.after(10, self.snake_coords_inc)
+        self.root.after(5, self.snake_coords_inc)
 
     def update_snake_pos(self):
         m = 0
@@ -87,7 +87,7 @@ class SnakeGame():
             y = self.snake_coords[m][1]
             self.lw.coords(part, x, y, x + 20, y + 20)
             m += 20
-        self.root.after(10, self.update_snake_pos)
+        self.root.after(5, self.update_snake_pos)
 
     def check_collisions(self):
         if self.x1 > 380:
