@@ -11,7 +11,7 @@ __email__ = "niels.heissel@stud.uni-frankfurt.de"
 
 import sys
 
-from scr import class_controller
+from scr.snake import class_controller
 
 
 def menue():

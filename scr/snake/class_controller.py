@@ -4,6 +4,12 @@ This class is dedicated to playing with a reali life friend or opponent. As alwa
 to be as descriptive as possible, so our commenting in docstrings is relatively shorter
 """
 
+__author__ = "6770541: Niels Heissel"
+__copyright__ = "Copyright 2017/2018 – EPR-Goethe-Uni"
+__credits__ = "If you would like to thank somebody \
+              i.e. an other student for her code or leave it out"
+__email__ = "niels.heissel@stud.uni-frankfurt.de"
+
 import random
 import tkinter as tk
 from tkinter import ttk
@@ -13,12 +19,6 @@ import sys
 import os
 import time
 import math
-
-
-__author__ = "6785468: Robert am Wege, 6770541: Niels Heissel"
-__copyright__ = "Copyright 2017/2018 - EPR-Goethe-Uni"
-__credits__ = ""
-__email__ = "uni.goethe.horde@gmail.com"
 
 
 class SnakeGame():
