@@ -109,12 +109,16 @@ class SnakeGame():
 
     def check_collisions(self):
         if self.x1 > 380:
+            messagebox.showwarning("Game Over", "Game Over! \nYou went out of the field.")
             sys.exit()
         if self.y1 > 280:
+            messagebox.showwarning("Game Over", "Game Over! \nYou went out of the field.")
             sys.exit()
         if self.x1 < 0:
+            messagebox.showwarning("Game Over", "Game Over! \nYou went out of the field.")
             sys.exit()
         if self.y1 < 0:
+            messagebox.showwarning("Game Over", "Game Over! \nYou went out of the field.")
             sys.exit()
         for food in self.foods:
             if self.x1 == self.lw.coords(food)[0] and self.y1 == self.lw.coords(food)[1]:
@@ -127,6 +131,7 @@ class SnakeGame():
 
         for part in self.snake_coords[1:len(self.snake_body)*self.steps_per_body]:
             if part[0] == self.x1 and part[1] == self.y1:
+                messagebox.showwarning("Game Over", "Game Over! \nYou ate yourself.")
                 sys.exit()
 
         for block in self.blocks:
@@ -137,7 +142,7 @@ class SnakeGame():
                 None
 
     def change_diretion_down(self, event):
-        if self.key_pressed == False:
+        if self.key_pressed is False:
             if self.direction == 4:
                 return
             if self.snake_coords[0][0] % 20 == 0 and self.snake_coords[0][1] % 20 == 0:
@@ -156,7 +161,7 @@ class SnakeGame():
             self.root.after(10, self.keep_change_down)
 
     def change_diretion_right(self, event):
-        if self.key_pressed == False:
+        if self.key_pressed is False:
             if self.direction == 3:
                 return
             if self.snake_coords[0][0] % 20 == 0 and self.snake_coords[0][1] % 20 == 0:
@@ -175,7 +180,7 @@ class SnakeGame():
             self.root.after(10, self.keep_change_right)
 
     def change_diretion_up(self, event):
-        if self.key_pressed == False:
+        if self.key_pressed is False:
             if self.direction == 2:
                 return
             if self.snake_coords[0][0] % 20 == 0 and self.snake_coords[0][1] % 20 == 0:
@@ -195,7 +200,7 @@ class SnakeGame():
             self.root.after(10, self.keep_change_up)
 
     def change_diretion_left(self, event):
-        if self.key_pressed == False:
+        if self.key_pressed is False:
             if self.direction == 1:
                 return
             if self.snake_coords[0][0] % 20 == 0 and self.snake_coords[0][1] % 20 == 0:
