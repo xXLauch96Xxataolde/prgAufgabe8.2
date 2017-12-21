@@ -51,8 +51,8 @@ class SnakeGame():
         self.lw = tk.Canvas(bg="black", width=400, height=300)
         self.lw.grid(rowspan=3, columnspan=3)
 
-        self.label_1 = tk.Label(self.root, textvariable=self.score_var, bg="red", relief=tk.RIDGE, bd="5", width=10,
-                                height=1)
+        self.label_1 = tk.Label(self.root, textvariable=self.score_var, bg="red",
+                                relief=tk.RIDGE, bd="5", width=10, height=1)
         self.label_1.grid(row=3, column=0)
 
         self.start_button = tk.Button(self.root, text="Start", command=self.start)
@@ -144,22 +144,26 @@ class SnakeGame():
             if self.x1 > 380:
                 self.game_state = False
                 self.lw.delete("all")
-                self.lw.create_text(200,100, text="GAME OVER \nYou lost...", fill="grey", font=("Purisa", 30))
+                self.lw.create_text(200,100, text="GAME OVER \nYou lost...", fill="grey",
+                                    font=("Purisa", 30))
                 return
             if self.y1 > 280:
                 self.game_state = False
                 self.lw.delete("all")
-                self.lw.create_text(200,100, text="GAME OVER \nYou lost...", fill="grey", font=("Purisa", 30))
+                self.lw.create_text(200,100, text="GAME OVER \nYou lost...", fill="grey",
+                                    font=("Purisa", 30))
                 return
             if self.x1 < 0:
                 self.game_state = False
                 self.lw.delete("all")
-                self.lw.create_text(200,100, text="GAME OVER \nYou lost...", fill="grey", font=("Purisa", 30))
+                self.lw.create_text(200,100, text="GAME OVER \nYou lost...", fill="grey",
+                                    font=("Purisa", 30))
                 return
             if self.y1 < 0:
                 self.game_state = False
                 self.lw.delete("all")
-                self.lw.create_text(200,100, text="GAME OVER \nYou lost...", fill="grey", font=("Purisa", 30))
+                self.lw.create_text(200,100, text="GAME OVER \nYou lost...", fill="grey",
+                                    font=("Purisa", 30))
                 return
 
             # check for food collision
@@ -176,14 +180,16 @@ class SnakeGame():
                 if part[0] == self.x1 and part[1] == self.y1:
                     self.game_state = False
                     self.lw.delete("all")
-                    self.lw.create_text(200,100, text="GAME OVER. You lost...", fill="grey", font=("Purisa", 30))
+                    self.lw.create_text(200,100, text="GAME OVER. You lost...", fill="grey",
+                                        font=("Purisa", 30))
                     return
 
             # check for collision with obstacle
             for block in self.blocks:
                 try:
                     if self.x1 == self.lw.coords(block)[0] and self.y1 == self.lw.coords(block)[1]:
-                        self.label_3 = tk.Label(self.root, text="Watch out for obstacles..", bg="grey")
+                        self.label_3 = tk.Label(self.root, text="Watch out for obstacles..",
+                                                bg="grey")
                         self.label_3.grid(row=3, column=1)
                         self.root.after(2000, self.delete_message)
                         self.dec_speed()
@@ -288,8 +294,6 @@ class SnakeGame():
         """Procedure to let the snake grow (after eating food)."""
 
         l = len(self.snake_body)
-
-        print(self.snake_coords)
 
         x = self.snake_coords[l * self.steps_per_body - 1][0]
         y = self.snake_coords[l * self.steps_per_body - 1][1]
