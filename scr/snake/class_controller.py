@@ -4,27 +4,22 @@ This class is dedicated to playing with a reali life friend or opponent. As alwa
 to be as descriptive as possible, so our commenting in docstrings is relatively shorter
 """
 
+import random
+import tkinter as tk
+from tkinter import messagebox
+import sys
+
 __author__ = "6770541: Niels Heissel"
 __copyright__ = "Copyright 2017/2018 – EPR-Goethe-Uni"
 __credits__ = "If you would like to thank somebody \
               i.e. an other student for her code or leave it out"
 __email__ = "niels.heissel@stud.uni-frankfurt.de"
 
-import random
-import tkinter as tk
-from tkinter import ttk
-from tkinter import PhotoImage
-from tkinter import messagebox
-import sys
-import os
-import time
-import math
-
 
 class SnakeGame():
     move_list = []
 
-    def __init__(self, tic=0):
+    def __init__(self):
         """The Constructor
 
         Called from the main.py, and handed over a tk root, which is the basis for the window.
@@ -32,7 +27,6 @@ class SnakeGame():
         """
 
         self.root = tk.Tk()
-        self.tic = tic
         self.root.attributes("-topmost", True)  # put the root to foreground
         self.root.geometry('+900+50')  # sets the default window position
         self.root.geometry('500x320')
@@ -56,10 +50,10 @@ class SnakeGame():
         self.lw = tk.Canvas(bg="black", width=400, height=300)
         self.lw.grid(row=0, column=0, rowspan=6, columnspan=9)
 
-        self.label_1 = tk.Label(self.root, textvariable = self.score_var, bg="red")
+        self.label_1 = tk.Label(self.root, textvariable=self.score_var, bg="red")
         self.label_1.grid(row=3, column=10)
 
-        self.label_2 = tk.Label(self.root, textvariable = self.speed_var, bg="green")
+        self.label_2 = tk.Label(self.root, textvariable=self.speed_var, bg="green")
         self.label_2.grid(row=4, column=10)
 
         self.circ = self.lw.create_oval(0, 0, 20, 20, fill="green")
@@ -73,7 +67,6 @@ class SnakeGame():
         self.root.bind('<Right>', self.change_diretion_right)
         self.root.bind('<Left>', self.change_diretion_left)
         self.root.bind('<Up>', self.change_diretion_up)
-
 
         self.root.after(1000, self.snake_coords_inc)
         self.root.after(1000, self.update_snake_pos)
@@ -130,7 +123,7 @@ class SnakeGame():
                 self.score += 1
                 print(self.score)
 
-        for part in self.snake_coords[1:len(self.snake_body)*self.steps_per_body]:
+        for part in self.snake_coords[1:len(self.snake_body) * self.steps_per_body]:
             if part[0] == self.x1 and part[1] == self.y1:
                 messagebox.showwarning("Game Over", "Game Over! \nYou ate yourself.")
                 sys.exit()
@@ -225,8 +218,8 @@ class SnakeGame():
 
         print(self.snake_coords)
 
-        x = self.snake_coords[l*self.steps_per_body - 1][0]
-        y = self.snake_coords[l*self.steps_per_body - 1][1]
+        x = self.snake_coords[l * self.steps_per_body - 1][0]
+        y = self.snake_coords[l * self.steps_per_body - 1][1]
         print(x)
         print(self.x1)
         m = self.lw.create_oval(x, y, x + 20, y + 20, fill="green")
@@ -240,11 +233,11 @@ class SnakeGame():
             # Check if random coordinates are in snake or next to head.
             if x in range(self.x1 - 40, self.x1 + 40) and y in range(self.y1 - 40, self.y1 + 40):
                 continue
-            if (x, y) in self.snake_coords[len(self.snake_body)*self.steps_per_body]:
+            if (x, y) in self.snake_coords[len(self.snake_body) * self.steps_per_body]:
                 continue
             else:
                 break
-        self.food = self.lw.create_oval(x, y, x+20, y+20, fill="red")
+        self.food = self.lw.create_oval(x, y, x + 20, y + 20, fill="red")
         self.lw.tag_lower(self.food)  # lowers the level of element
         self.root.after(5000, self.food_generator)
         print(self.lw.coords(self.food)[0:2])
@@ -259,11 +252,11 @@ class SnakeGame():
             # Check if random coordinates are in snake or next to head.
             if x in range(self.x1 - 60, self.x1 + 60) and y in range(self.y1 - 60, self.y1 + 60):
                 continue
-            if (x, y) in self.snake_coords[len(self.snake_body)*self.steps_per_body]:
+            if (x, y) in self.snake_coords[len(self.snake_body) * self.steps_per_body]:
                 continue
             else:
                 break
-        self.block = self.lw.create_oval(x, y, x+20, y+20, fill="grey")
+        self.block = self.lw.create_oval(x, y, x + 20, y + 20, fill="grey")
         self.lw.tag_lower(self.block)  # lowers the level of element
         self.root.after(5000, self.block_generator)
         self.blocks.append(self.block)
@@ -285,7 +278,7 @@ class SnakeGame():
         else:
             self.root.after(5, self.inc_speed)
             return
-        self.steps_per_body = int(20/self.speed)
+        self.steps_per_body = int(20 / self.speed)
 
         self.root.after(10000, self.inc_speed)
 
@@ -300,7 +293,7 @@ class SnakeGame():
         else:
             self.root.after(5, self.inc_speed)
             return
-        self.steps_per_body = int(20/self.speed)
+        self.steps_per_body = int(20 / self.speed)
 
     def __del__(self):
         print("Instance deleted.")
