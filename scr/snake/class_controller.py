@@ -293,8 +293,6 @@ class SnakeGame():
 
         x = self.snake_coords[l * self.steps_per_body - 1][0]
         y = self.snake_coords[l * self.steps_per_body - 1][1]
-        print(x)
-        print(self.x1)
         m = self.lw.create_oval(x, y, x + 20, y + 20, fill="darkgreen")
         self.snake_body.append(m)
 

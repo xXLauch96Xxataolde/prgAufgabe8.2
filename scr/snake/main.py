@@ -4,7 +4,7 @@ It is automatically started by starting the program.
 """
 
 import sys
-from scr.snake import class_controller
+import class_controller
 
 __author__ = "6770541: Niels Heissel"
 __copyright__ = "Copyright 2017/2018 – EPR-Goethe-Uni"
