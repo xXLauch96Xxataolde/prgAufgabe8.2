@@ -1,7 +1,7 @@
 """Snake Controller Class
 
-This class is dedicated to playing with a reali life friend or opponent. As always we tried
-to be as descriptive as possible, so our commenting in docstrings is relatively shorter
+This class is created to allow a single player enjoy a nice game of Snake.
+An instance is created in the main.py.
 """
 
 import random
@@ -22,8 +22,8 @@ class SnakeGame():
     def __init__(self):
         """The Constructor
 
-        Called from the main.py, and handed over a tk root, which is the basis for the window.
-        In the constructor we bind every widget to its belonging root window
+        Called from the main.py, starting with a tk root, which is the basis for the window.
+        In the constructor we bind every widget to its belonging root window.
         """
 
         self.root = tk.Tk()
@@ -79,6 +79,7 @@ class SnakeGame():
         sys.exit()
 
     def start(self):
+        """Start- This procedure starts the game."""
         self.delete_instructions()
         self.game_state = True
         self.snake_coords_inc()
@@ -91,6 +92,7 @@ class SnakeGame():
 
 
     def instructions(self):
+        """Here we create a canvas text element, and write our main  instructions."""
         self.text = self.lw.create_text(200, 115, text="Welcome to Snake. \nThe original game "
                                                       "with some small changes. \nTo navigate "
                                                       "with the snake, use the arrow keys\n"
@@ -104,9 +106,15 @@ class SnakeGame():
                                         fill="white", font=("Purisa", 15))
 
     def delete_instructions(self):
+        """Deletes the displayed instructions."""
         self.lw.delete(self.text)
 
     def snake_coords_inc(self):
+        """Snake Coordinates Increase
+
+        This procedure is like a loop done through recursion. It increases the coordinates
+        depending on the speed of the snake.
+        """
         self.check_collisions()
         if self.direction == 1:
             self.x1 += self.speed
@@ -120,6 +128,7 @@ class SnakeGame():
         self.root.after(1, self.snake_coords_inc)
 
     def update_snake_pos(self):
+        """This procedure updates the position of the snake on our canvas."""
         m = 0
         for part in self.snake_body:
             x = self.snake_coords[m][0]
@@ -130,7 +139,8 @@ class SnakeGame():
         self.root.after(1, self.update_snake_pos)
 
     def check_collisions(self):
-        if self.game_state == True:
+        """This function is self-explanatory, it checks for different collisions"""
+        if self.game_state is True:
             if self.x1 > 380:
                 self.game_state = False
                 self.lw.delete("all")
@@ -151,6 +161,8 @@ class SnakeGame():
                 self.lw.delete("all")
                 self.lw.create_text(200,100, text="GAME OVER \nYou lost...", fill="grey", font=("Purisa", 30))
                 return
+
+            # check for food collision
             for food in self.foods:
                 if self.x1 == self.lw.coords(food)[0] and self.y1 == self.lw.coords(food)[1]:
                     self.grow()
@@ -159,6 +171,7 @@ class SnakeGame():
                     self.score += 1
                     self.score_var.set(self.score)
 
+            # check for collision with itself
             for part in self.snake_coords[1:len(self.snake_body) * self.steps_per_body]:
                 if part[0] == self.x1 and part[1] == self.y1:
                     self.game_state = False
@@ -166,6 +179,7 @@ class SnakeGame():
                     self.lw.create_text(200,100, text="GAME OVER. You lost...", fill="grey", font=("Purisa", 30))
                     return
 
+            # check for collision with obstacle
             for block in self.blocks:
                 try:
                     if self.x1 == self.lw.coords(block)[0] and self.y1 == self.lw.coords(block)[1]:
@@ -177,15 +191,19 @@ class SnakeGame():
                     None
 
     def delete_message(self):
+        """This procedure deletes the displayed message, that you hit an obstacle."""
         try:
             self.label_3.destroy()
         except AttributeError:
             None
 
     def change_diretion_down(self, event):
+        """Function which changes the direction of the snake."""
         if self.key_pressed is False and self.game_state is True:
             if self.direction == 4:
                 return
+
+            # only change on predefined lines
             if self.snake_coords[0][0] % 20 == 0 and self.snake_coords[0][1] % 20 == 0:
                 self.direction = 2
                 return
@@ -194,6 +212,7 @@ class SnakeGame():
                 self.key_pressed = True
 
     def keep_change_down(self):
+        """Function which changes the direction of the snake if snake couldn't turn before."""
         if self.snake_coords[0][0] % 20 == 0 and self.snake_coords[0][1] % 20 == 0:
             self.direction = 2
             self.key_pressed = False
@@ -202,6 +221,7 @@ class SnakeGame():
             self.root.after(10, self.keep_change_down)
 
     def change_diretion_right(self, event):
+        """Function which changes the direction of the snake."""
         if self.key_pressed is False and self.game_state is True:
             if self.direction == 3:
                 return
@@ -213,6 +233,7 @@ class SnakeGame():
                 self.key_pressed = True
 
     def keep_change_right(self):
+        """Function which changes the direction of the snake if snake couldn't turn before."""
         if self.snake_coords[0][0] % 20 == 0 and self.snake_coords[0][1] % 20 == 0:
             self.direction = 1
             self.key_pressed = False
@@ -221,6 +242,7 @@ class SnakeGame():
             self.root.after(10, self.keep_change_right)
 
     def change_diretion_up(self, event):
+        """Function which changes the direction of the snake."""
         if self.key_pressed is False and self.game_state is True:
             if self.direction == 2:
                 return
@@ -233,6 +255,7 @@ class SnakeGame():
                 self.key_pressed = True
 
     def keep_change_up(self):
+        """Function which changes the direction of the snake if snake couldn't turn before."""
         if self.snake_coords[0][0] % 20 == 0 and self.snake_coords[0][1] % 20 == 0:
             self.direction = 4
             self.key_pressed = False
@@ -241,6 +264,7 @@ class SnakeGame():
             self.root.after(10, self.keep_change_up)
 
     def change_diretion_left(self, event):
+        """Function which changes the direction of the snake."""
         if self.key_pressed is False and self.game_state is True:
             if self.direction == 1:
                 return
@@ -252,6 +276,7 @@ class SnakeGame():
                 self.key_pressed = True
 
     def keep_change_left(self):
+        """Function which changes the direction of the snake if snake couldn't turn before."""
         if self.snake_coords[0][0] % 20 == 0 and self.snake_coords[0][1] % 20 == 0:
             self.direction = 3
             self.key_pressed = False
@@ -260,6 +285,7 @@ class SnakeGame():
             self.root.after(10, self.keep_change_left)
 
     def grow(self):
+        """Procedure to let the snake grow (after eating food)."""
 
         l = len(self.snake_body)
 
@@ -310,12 +336,13 @@ class SnakeGame():
         self.blocks.append(block)
 
     def block_destructor(self):
-        """Randomly positions blocks on the field."""
+        """Randomly destructs blocks on the field."""
         random_block = random.choice(self.blocks)
         self.lw.delete(random_block)
         self.root.after(5000, self.block_destructor)
 
     def inc_speed(self):
+        """Function to increase the speed of the snake every ten seconds."""
         if self.x1 % 20 == 0 and self.y1 % 20 == 0:
             if self.speed == 1:
                 self.speed = 2
@@ -331,6 +358,7 @@ class SnakeGame():
             self.root.after(10000, self.inc_speed)
 
     def dec_speed(self):
+        """Function, which decreases Speed once an obstacle is hit."""
         if self.x1 % 20 == 0 and self.y1 % 20 == 0:
             if self.speed == 5:
                 self.speed = 4

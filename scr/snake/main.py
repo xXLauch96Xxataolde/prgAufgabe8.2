@@ -12,8 +12,20 @@ __credits__ = "If you would like to thank somebody \
               i.e. an other student for her code or leave it out"
 __email__ = "niels.heissel@stud.uni-frankfurt.de"
 
+
 def manuel():
-    print("This is the manuel. Welcome to Snake.")
+    print("This is the manuel.\n"
+          "Welcome to Snake. \nThe original game "
+          "with some small changes. \nTo navigate "
+          "with the snake, use the arrow keys on the "
+          "bottom right of your keyboard\n"
+          "(<up>, <down>, <right>, <left>). \n"
+          "But don't turn to quickly or you will bite"
+          " yourself...\n"
+          "Be careful, your speed increases every "
+          "10 seconds. \n\nEat the red ovals to score, "
+          "hit the grey to slow down, but \nwatch out,"
+          " you might get torn apart.\n\n")
 
 
 def menue():
