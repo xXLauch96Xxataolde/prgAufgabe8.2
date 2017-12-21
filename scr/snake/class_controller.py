@@ -58,8 +58,8 @@ class SnakeGame():
         self.start_button = tk.Button(self.root, text="Start", command=self.start)
         self.start_button.grid(row=3, column=1)
 
-        self.label_2 = tk.Label(self.root, textvariable=self.speed_var, bg="blue", relief=tk.RIDGE, bd="5", width=10,
-                                height=1)
+        self.label_2 = tk.Label(self.root, textvariable=self.speed_var, bg="blue",
+                                relief=tk.RIDGE, bd="5", width=10, height=1)
         self.label_2.grid(row=3, column=2)
 
         self.circ = self.lw.create_oval(0, 0, 20, 20, fill="green")
