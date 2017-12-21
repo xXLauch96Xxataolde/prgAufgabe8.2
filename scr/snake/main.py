@@ -1,4 +1,4 @@
-"""Docstring: This program lets you play two games.
+"""Docstring: This program lets you play Snake.
 
 It is automatically started by starting the program.
 """
@@ -29,7 +29,7 @@ def manuel():
 
 
 def menue():
-    """a procedure for printing a menue we assume"""
+    """This procedure prints the Menu"""
 
     print("...Welcome to the Menue....................")
     print("...........................................")
@@ -47,13 +47,12 @@ def main():
         inp = input()
         if (inp == "1"):
             game = class_controller.SnakeGame()
-            inp = ""
         elif inp == "2":
             manuel()
         elif (inp == "3"):
             sys.exit()
         else:
-            print("Wrong Input. Choose a number between 1 and 5, please\n")
+            print("Wrong Input. Choose a number between 1 and 3, please\n")
 
 
 if __name__ == '__main__':
